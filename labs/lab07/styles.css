@@ -1,0 +1,16 @@
+h2 {
+    color: white;
+    font-family: sans-serif;
+    font-size:  50px;
+    font-weight: bold;
+    text-decoration: underline;
+    text-shadow: 4px 4px 5px red;
+} 
+
+img {
+    border: thick double #32a1ce;;
+}
+
+body {
+    background-image: url("pic1.jpeg")
+}
