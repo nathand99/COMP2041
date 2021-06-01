@@ -1,4 +1,6 @@
 #!/bin/sh
+# program that prints a string n number of times
+# ./echon.sh <number of lines> <string>"
 
 n=$1
 string=$2
