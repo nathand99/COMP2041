@@ -1,0 +1,85 @@
+#!/bin/dash
+
+# check that .legit repo exists
+if ! test -e ".legit"
+then
+    echo "$0: error: no .legit directory containing legit repository exists"
+    exit 1
+fi
+
+# either 2 or 3 command line arguments
+if test $# -lt 2 || test $# -gt 3
+then
+    echo "usage: $0 [-a] -m commit-message"
+    exit 1
+fi
+
+# if first argument is -m then next argument is message
+message=""
+if test "$1" = "-m"
+then
+    message="$2"
+# if first argument is -a then next argument is -m, then message
+elif test "$1" = "-a"
+then
+    if test "$2" != "-m" || test $# -lt 3
+    then
+        echo "usage: $0 [-a] -m commit-message"
+        exit 1
+    fi
+    message="$3"
+    ####EVERY FILE IN INDEX NEEDS TO BE UPDATED FROM DIRECTORY####
+    for a in .legit/index/*
+    do
+        b=`echo "$a" | cut -d '/' -f3`
+        if test -e "$b"
+        then
+            legit-add "$b"
+        fi
+    done
+# if first argument is something else, exit
+else
+    echo "usage: $0 [-a] -m commit-message"
+    exit 1
+fi
+
+# nothing to commit 
+size=`ls -1 .legit/index/ | wc -l`
+if test "$size" -eq 0
+then
+    echo "nothing to commit"
+    exit 0
+fi
+
+
+# get ready to make new commit folder (go past existing commits)
+i=0
+while test -e ".legit/commit/commit.$i"
+do
+    i=`expr "$i" + 1`
+done
+commit="commit.$i"
+
+# index unchanged from last commit
+if test "$i" -gt 0
+then
+    j=`expr "$i" - 1`
+    # last commit
+    check=".legit/commit/commit.$j/"
+    if diff -q -x 'message.txt' "$check" .legit/index/ >/dev/null
+    then
+        echo "nothing to commit"
+        exit 0
+    fi
+fi
+
+# do the commit
+
+for file in ".legit/index/"
+do
+    cp -r "$file" ".legit/commit/$commit/"
+done
+
+echo "Committed as commit $i"
+
+echo $message > .legit/commit/$commit/message.txt

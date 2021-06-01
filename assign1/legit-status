@@ -1,0 +1,24 @@
+#!/bin/dash
+
+i=0
+
+for file in the last commit
+do
+    # look at the dirtectory
+    # if the file is the same then echo "same as repo"
+    
+    # if its changed then 3 options
+    #-different changes staged for commit
+    #-changes staged for commit
+    #-changes not staged for commit
+    
+    # if the file is not there echo "deleted"
+    
+    #Now look at directory for files we havent already seen
+    #if files are the same index echo "added to index"
+    #OR
+    #-file changed: changes not staged for commit
+    
+    #if files not on index then echo "untracked"   
+    
+done

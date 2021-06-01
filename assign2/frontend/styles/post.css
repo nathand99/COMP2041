@@ -1,0 +1,65 @@
+
+.post {
+  /*display: flex;*/
+  overflow: hidden;
+  margin: 20px 0;
+  background-color: white;
+  border: 1px solid var(--reddit-grey);
+}
+
+.post .vote {
+  width: 120px;
+  background-color: var(--reddit-light-grey);
+  font-size: 14px;
+}
+
+.post-content {
+  padding: 10px;
+  padding-left: 10px;
+}
+
+.post-title {
+  margin: 10;
+  padding-left: 10px;
+  /*border: 1px solid var(--reddit-grey);*/
+}
+
+.post-author {
+  margin: 5px 0;
+  font-size: 12px;
+  color: var(--reddit-blue);
+}
+
+.post-img {
+  max-width: 350px;
+  max-height: 350px;
+  padding-left: 10px;
+}
+
+.topdiv {
+  background-color: var(--reddit-light-grey);
+}
+
+.post-seddit {
+  margin: 5px 0;
+  font-size: 12px;
+  font-weight: 550;
+  padding-left: 8px;
+}
+
+.likes-div {
+  display: flex;
+}
+
+.who-div {
+  background-color: rgb(211, 211, 211);
+}
+
+.likeButton {
+  background-color: rgb(0, 62, 90);
+  border: 1px solid var(--reddit-blue);
+  border-radius: 4px;
+  text-transform: uppercase;
+  /*padding: 7.5px 15px;*/
+  font-weight: bold;
+}

@@ -1,0 +1,42 @@
+#!/bin/dash
+
+# check that .legit repo exists
+if ! test -e ".legit"
+then
+    echo "$0: error: no .legit directory containing legit repository exists"
+    exit 1
+fi
+
+# no command arguments for log
+if test $# -gt 0
+then
+    echo "usage: $0"
+    exit 1
+fi
+
+# loop through every commit, printing commit number and message.txt
+size=`ls .legit/commit/ | wc -l`
+
+if test "$size" -eq 0
+then
+    echo "$0: error: your repository does not have any commits yet"
+    exit 1
+fi
+
+i=`expr "$size" - 1`
+while test $i -ge 0
+do
+    echo -n "$i "
+    cat .legit/commit/commit."$i"/message.txt
+    i=`expr "$i" - 1`
+done
+
+#doesnt work
+#for file in ".legit/commit/"
+#do
+#    new=`ls $file`
+#    echo "$new"
+#    n=`echo $new | cut -d '.' -f2`
+#    echo -n "$n "
+#    cat '.legit/commit/"$new"/message.txt'
+#done

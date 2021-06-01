@@ -1,0 +1,102 @@
+#!/bin/dash
+
+if test $# -eq 0
+then
+    echo "usage: $0 [--force] [--cached] filenames"
+    exit 1
+fi
+
+force=0
+cached=0
+
+if test "$1" = "--force"
+then
+    force=1
+    # if theres nothing after --force, exit
+    if test $# -eq 1
+    then
+        echo "usage: $0 [--force] [--cached] filenames"
+        exit 1
+    fi
+    if test $2 = "--cached"
+    then
+        cached=1
+     fi
+fi
+
+if test $1 = "--cached"
+then
+    cached=1
+    # if theres nothing after --cached, exit
+    if test $# -eq 1
+    then
+        echo "usage: $0 [--force] [--cached] filenames"
+        exit 1
+    fi
+fi
+
+# cached removal - just remove from index NO FORCE
+if test $force -eq 0
+then    
+    for arg in $@
+    do
+        if test $arg != "--cached" && test $arg != "--force"
+        then
+            if rm .legit/index/$arg
+            then
+                :
+            else
+                echo "$0: error: '"$arg"' is not in the legit repository"
+                exit 1
+            fi
+        fi
+    done
+
+# cached removal - just remove from index WITH FORCE
+elif test $force -eq 1
+then    
+    for arg in $@
+    do
+        if test $arg != "--cached" && test $arg != "--force"
+        then
+            if rm -f .legit/index/$arg
+            then
+                :
+            else
+                echo "$0: error: '"$arg"' is not in the legit repository"
+                exit 1
+            fi
+        fi
+    done
+fi
+
+# NON-CACHED removal - remove from directory
+if test $cached -eq 0
+then
+    for arg in $@
+    do
+        if test $arg != "--cached" && test $arg != "--force"
+        then
+            # with force
+            if test $force -eq 1
+            then
+                if rm -f $arg
+                then
+                    :
+                else
+                    echo "$0: error: '"$arg"' is not in the legit repository"
+                    exit 1
+                fi
+            # without force
+            else
+                if rm $arg
+                then
+                    :
+                else
+                    echo "$0: error: '"$arg"' is not in the legit repository"
+                    exit 1
+                fi
+            fi 
+        fi
+    done
+fi

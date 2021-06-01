@@ -1,0 +1,64 @@
+#!/bin/dash
+
+# check that .legit repo exists
+if ! test -e ".legit"
+then
+    echo "$0: error: no .legit directory containing legit repository exists"
+    exit 1
+fi
+
+# show takes 1 command line argument
+if ! test $# -eq 1
+then
+    echo "usage: $0 <commit>:<filename>"
+    exit 1
+fi
+
+# check argument is valid
+name=`echo "$1" | egrep '^[0-9]*:.*$'`
+if test "$name" != "$1"
+then
+    echo ""$0": error: invalid object "$1""
+    exit 1
+fi
+
+# <commit>:<filename>
+commit=`echo "$1" | cut -d ":" -f1`
+file=`echo "$1" | cut -d ":" -f2`
+
+# check filename is valid
+name=`echo "$file" | egrep '^[a-zA-Z0-9][a-zA-Z0-9._-]*$'`
+if test -z "$name"
+then
+    echo ""$0": error: invalid filename '"$file"'"
+    exit 1
+fi
+
+# if no commit is given, take file from index
+if test -z "$commit"
+then
+    # if file exists in index, cat it
+    if test -e .legit/index/"$file"
+    then   
+        cat .legit/index/"$file"
+    else
+        echo ""$0": error: '"$file"' not found in index";
+        exit 1;
+    fi
+
+# commit is given but doesnt exist
+elif ! test -d ".legit/commit/commit."$commit"/" 
+then
+    echo ""$0": error: unknown commit '"$commit"'"
+    exit 1;
+    
+# commit is given, and exists but file is not in that commit
+elif ! test -e .legit/commit/commit.$commit/"$file"
+then
+    echo ""$0": error: '"$file"' not found in commit "$commit""
+    exit 1
+# commit is given, exists and file is there: cat the file
+else
+    cat .legit/commit/commit.$commit/"$file"
+fi
+

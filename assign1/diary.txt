@@ -1,0 +1,41 @@
+date    start   stop    activity    
+4/7/19  1:00pm  2:00pm  coding
+comments: started coding legit-init
+
+4/7/19  11:00pm 12:30am coding      
+started thinking about and coding add and commit. They probably dont
+work but I haven't tested it 
+
+6/7/19  1:00pm  3:00pm  coding      
+Finished coding add, commit. They both work if you dont try and 
+break it. Also edited init so it makes an index and commit directory
+to help organise .legit a bit better. Commit puts the commit message
+in a text file called message.txt. Started working on log
+
+6/7/19  8:00pm  9:30pm  coding      
+Finished coding log. I think it works
+
+7/7/19  1:30pm  3:30pm  coding      
+Started and finished coding show. It works if you dont try and break it. Started work on rm
+
+8/7/19  1:30pm  4:00pm  coding      
+Continued on rm and didnt finish and started on status by writing a 
+giant comment
+
+9/7/19  12:30pm 1:30pm  fixing      
+Started detecting and handling errors with init, add, commit such as
+needing a .legit directory to commit and add
+
+13/7/19 8:00pm  9:30pm  fixing      
+Re-wrote legit-log because it doesn't work anymore for some reason 
+(even though it worked before)
+
+14/7/19 11:30am 9:45pm  fixing/coding (DUE DATE) (10:00pm)
+Went through all of subset 0 programs and tested them a lot with
+all sorts of things to try and break it and try to catch and handle
+errors like the 2041 legit- program does. 
+Legit-add needed to check filenames were valid. Commit needed to handle command line args better and fixed a few bugs. -a option doesnt look like it works, but it passes the autotest . Added in "nothing to commit" functionality for when there is nothing in the index and when nothing has changed from the last commit. Log needed to check command line args and there was also a bug to be fixed when it cat's. Show needed to be re-written. It used find a lot which was annoying and hard to fix so changed all finds to test -e/-d. Also added in a lot of error checking for show so it should go alright.
+Commit with -a works now and rm works if you dont try and break it. Theres not enough time to do status. 
+Finished writing test scripts and now finishing writing this at 9:45. Goodbye
+ps: BTW i saw on the github link that theres some legit-####.sh scripts from ages ago. I can't get rid of them but ignore any legit scripts with a .sh at the end. Now I have to give again
+ps2: i deleted them its alright

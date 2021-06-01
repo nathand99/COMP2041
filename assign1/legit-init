@@ -1,0 +1,21 @@
+#!/bin/dash
+
+# no command line arguments to be provided
+if test $# -ne 0
+then
+    echo "usage: legit-init"
+    exit 1
+fi
+
+# make .legit directory, then make .index directory inside .legit
+if mkdir .legit 2>/dev/null
+then 
+    echo "Initialized empty legit repository in .legit"
+    cd .legit
+    mkdir index
+    mkdir commit
+    cd ..
+else
+    echo ""$0": error: .legit already exists" 
+fi
+

@@ -1,0 +1,47 @@
+#!/bin/dash
+
+# check that .legit repo exists
+if ! test -e ".legit"
+then
+    echo "$0: error: no .legit directory containing legit repository exists"
+    exit 1
+fi
+
+# user must provide files
+if test $# -eq 0
+then
+    echo "usage: $0 <filenames>"
+    exit 1
+fi
+
+# check filename is valid
+for file in $@
+do
+    name=`echo "$file" | egrep '^[a-zA-Z0-9][a-zA-Z0-9._-]*$'`
+    if test "$name" != "$file"
+    then
+        echo ""$0": error: invalid filename '"$file"'"
+        exit 1
+    fi
+done
+
+# check file exists
+for file in $@
+do
+    if ! test -e "$file"
+    then
+        echo ""$0": error: can not open '"$file"'"
+        exit 1
+    fi
+done
+
+#for each file, send a copy to the index
+for file in $@
+do
+    if test -e "$file"
+    then
+        cp "$file" ".legit/index/"$file""
+    else
+        echo ""$0": error: can not open '"$file"'"
+    fi
+done
