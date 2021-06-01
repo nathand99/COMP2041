@@ -2,7 +2,7 @@
 The main topic in this class are filters, REGEX, Shell, Perl and Javascript. These are covered in labs, weekly tests and 2 assignments
 
 ## Filters and REGEX
-Filters and REGEX are covered in lab 1
+Filters and REGEX are covered in lab 1 and 2
 
 ## Shell
 Shell coding is covered in labs 2 and 3 as well as assignment 1 and weekly tests 3, 4, 8
